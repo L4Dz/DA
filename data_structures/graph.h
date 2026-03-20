@@ -50,6 +50,7 @@ public:
 
     // Project Metadata
     VertexType type;
+    std::string title;
     int primaryDomain;    
     int secondaryDomain;  
 
@@ -182,7 +183,12 @@ void edmondsKarp(Graph<T> *g, T source, T target) {
 //Implementation of methods 
 
 template <class T>
-Vertex<T>::Vertex(T in): info(in) {}
+Vertex<T>::Vertex(T in): info(in), 
+    type(VertexType::SOURCE), // Default type
+    title(""),                 // Default empty string
+    primaryDomain(0),          // Fixes the garbage numbers
+    secondaryDomain(-1),       // -1 means no domain assigned
+    indegree(0) {}
 
 template <class T>
 Edge<T> * Vertex<T>::addEdge(Vertex<T> *d, double w) {
