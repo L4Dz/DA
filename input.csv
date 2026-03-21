@@ -15,7 +15,7 @@
 MinReviewsPerSubmission, 2
 MaxReviewsPerReviewer, 3
 PrimaryReviewerExpertise, 1
-SecondaryReviewerExpertise, 0
+SecondaryReviewerExpertise, 1
 PrimarySubmissionDomain, 1
 SecondarySubmissionDomain, 1
 #
