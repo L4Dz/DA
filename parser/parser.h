@@ -258,7 +258,7 @@ public:
                     v->secondaryDomain = (row.size() > 5 && !row[5].empty()) ? std::stoi(row[5]) : -1;
                 } 
                 else if (section == "REVIEWERS" && row.size() >= 4) {
-                    int id = std::stoi(row[0]);
+                    int id = std::stoi(row[0]) + 1000;
                     g.addVertex(id);
                     auto v = g.findVertex(id);
                     v->type = VertexType::REVIEWER;

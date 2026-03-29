@@ -1,0 +1,11 @@
+=== CONFERENCE ASSIGNMENT REPORT ===
+
+--- Final Paper Assignments ---
+Paper 31 -> Reviewer 2
+Paper 87 -> Reviewer 1
+Paper 87 -> Reviewer 4
+Paper 102 -> Reviewer 2
+Paper 102 -> Reviewer 3
+
+--- Risk Analysis ---
+![RISK] Paper 31 is short by 1 reviews.
