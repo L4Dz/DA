@@ -31,7 +31,7 @@
 template <class T> class Edge;
 template <class T> class Graph;
 
-/** 
+/**
  * @brief (EN) Represents positive infinity for distance/flow computations.
  * @brief (PT) Representa infinito positivo para cálculos de distância/fluxo.
  */
@@ -43,13 +43,13 @@ template <class T> class Graph;
  * @brief (PT) Classifica o papel de um vértice na rede de fluxo.
  *
  * @var VertexType::SOURCE
- *   (EN) Super-source node that originates all flow. / (PT) Nó super-fonte que origina todo o fluxo.
+ * (EN) Super-source node that originates all flow. / (PT) Nó super-fonte que origina todo o fluxo.
  * @var VertexType::SINK
- *   (EN) Super-sink node that absorbs all flow. / (PT) Nó super-sumidouro que absorve todo o fluxo.
+ * (EN) Super-sink node that absorbs all flow. / (PT) Nó super-sumidouro que absorve todo o fluxo.
  * @var VertexType::SUBMISSION
- *   (EN) A paper/submission to be reviewed. / (PT) Um artigo/submissão a ser revisto.
+ * (EN) A paper/submission to be reviewed. / (PT) Um artigo/submissão a ser revisto.
  * @var VertexType::REVIEWER
- *   (EN) A reviewer that evaluates submissions. / (PT) Um revisor que avalia submissões.
+ * (EN) A reviewer that evaluates submissions. / (PT) Um revisor que avalia submissões.
  */
 enum class VertexType { SOURCE, SINK, SUBMISSION, REVIEWER };
 
@@ -445,6 +445,7 @@ protected:
  * (PT) Um vértice só é colocado na fila se ainda não foi visitado e a capacidade residual é positiva.
  * É chamado tanto para arestas diretas (capacidade - fluxo) como inversas (fluxo).
  *
+ * @note Time Complexity: $O(1)$ constant time execution.
  * @tparam T Vertex info type. / (PT) Tipo da informação dos vértices.
  * @param q BFS queue. / (PT) Fila BFS.
  * @param e The edge being explored. / (PT) A aresta a explorar.
@@ -473,6 +474,7 @@ void testAndVisit(std::queue<Vertex<T>*> &q, Edge<T> *e, Vertex<T> *w, double re
  * explora arestas diretas com capacidade residual (weight - flow > 0) e arestas inversas
  * com fluxo não nulo (permitindo cancelamento de fluxo). Devolve true se t for alcançado.
  *
+ * @note Time Complexity: $O(V + E)$ where $V$ is the number of vertices and $E$ is the number of edges.
  * @tparam T Vertex info type. / (PT) Tipo da informação dos vértices.
  * @param g Pointer to the graph. / (PT) Ponteiro para o grafo.
  * @param s Pointer to the source vertex. / (PT) Ponteiro para o vértice fonte.
@@ -502,22 +504,24 @@ bool findAugmentingPath(Graph<T> *g, Vertex<T> *s, Vertex<T> *t) {
  *
  * @details
  * (EN) Implements the Edmonds-Karp variant of Ford-Fulkerson, which uses BFS to find
- * shortest augmenting paths. This guarantees O(VE²) time complexity.
+ * shortest augmenting paths. This guarantees a polynomial time complexity.
  * Steps:
- *  1. Reset all edge flows to 0.
- *  2. Repeatedly find an augmenting path via BFS (findAugmentingPath).
- *  3. Determine the bottleneck (minimum residual capacity along the path).
- *  4. Update flows along the path (forward edges increase, backward edges decrease).
+ * 1. Reset all edge flows to 0.
+ * 2. Repeatedly find an augmenting path via BFS (findAugmentingPath).
+ * 3. Determine the bottleneck (minimum residual capacity along the path).
+ * 4. Update flows along the path (forward edges increase, backward edges decrease).
  * After this call, each edge's flow field reflects the optimal flow assignment.
  *
  * (PT) Implementa a variante Edmonds-Karp de Ford-Fulkerson, que usa BFS para encontrar
- * os caminhos aumentantes mais curtos, garantindo complexidade temporal O(VE²).
+ * os caminhos aumentantes mais curtos, garantindo complexidade temporal polinomial.
  * Passos:
- *  1. Reinicia todos os fluxos das arestas para 0.
- *  2. Encontra repetidamente um caminho aumentante via BFS (findAugmentingPath).
- *  3. Determina o bottleneck (mínima capacidade residual ao longo do caminho).
- *  4. Atualiza os fluxos ao longo do caminho (arestas diretas aumentam, inversas diminuem).
+ * 1. Reinicia todos os fluxos das arestas para 0.
+ * 2. Encontra repetidamente um caminho aumentante via BFS (findAugmentingPath).
+ * 3. Determina o bottleneck (mínima capacidade residual ao longo do caminho).
+ * 4. Atualiza os fluxos ao longo do caminho (arestas diretas aumentam, inversas diminuem).
  * Após esta chamada, o campo flow de cada aresta reflete a atribuição ótima de fluxo.
+ *
+ * @note Time Complexity: $O(V \cdot E^2)$ where $V$ is the number of vertices and $E$ is the number of edges.
  *
  * @tparam T Vertex info type. / (PT) Tipo da informação dos vértices.
  * @param g Pointer to the graph. / (PT) Ponteiro para o grafo.
