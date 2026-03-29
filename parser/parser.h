@@ -1,3 +1,5 @@
+// Path: DA2026_PRJ1_T<TN>_G<GN>/Code/src/parser/parser.h
+
 /**
  * @file Parser.h
  * @brief CSV parser and flow network builder for the submission-reviewer assignment problem.
@@ -5,16 +7,16 @@
  *
  * @details
  * (EN) This header defines the data structures and Parser class responsible for:
- *  - Reading a structured CSV input file containing submissions, reviewers, algorithm parameters, and control settings.
- *  - Populating a Graph<int> with the corresponding vertices and metadata.
- *  - Building the flow network (source → submissions → reviewers → sink) used by Edmonds-Karp
- *    to compute an optimal reviewer assignment.
+ * - Reading a structured CSV input file containing submissions, reviewers, algorithm parameters, and control settings.
+ * - Populating a Graph<int> with the corresponding vertices and metadata.
+ * - Building the flow network (source → submissions → reviewers → sink) used by Edmonds-Karp
+ * to compute an optimal reviewer assignment.
  *
  * (PT) Este ficheiro define as estruturas de dados e a classe Parser responsáveis por:
- *  - Ler um ficheiro CSV estruturado com submissões, revisores, parâmetros do algoritmo e definições de controlo.
- *  - Popular um Graph<int> com os vértices e metadados correspondentes.
- *  - Construir a rede de fluxo (fonte → submissões → revisores → sumidouro) usada pelo Edmonds-Karp
- *    para calcular uma atribuição ótima de revisores.
+ * - Ler um ficheiro CSV estruturado com submissões, revisores, parâmetros do algoritmo e definições de controlo.
+ * - Popular um Graph<int> com os vértices e metadados correspondentes.
+ * - Construir a rede de fluxo (fonte → submissões → revisores → sumidouro) usada pelo Edmonds-Karp
+ * para calcular uma atribuição ótima de revisores.
  *
  * @author DA Project Group
  * @date 2026
@@ -128,10 +130,10 @@ struct ControlSettings {
  *
  * @details
  * (EN) The Parser class provides two main operations:
- *  - loadData(): parses the CSV file and populates the graph with submission and reviewer vertices,
- *    along with filling in AssignmentParams and ControlSettings.
- *  - buildNetwork(): constructs the flow network by adding source/sink nodes and connecting
- *    submissions to compatible reviewers based on domain matching rules.
+ * - loadData(): parses the CSV file and populates the graph with submission and reviewer vertices,
+ * along with filling in AssignmentParams and ControlSettings.
+ * - buildNetwork(): constructs the flow network by adding source/sink nodes and connecting
+ * submissions to compatible reviewers based on domain matching rules.
  *
  * The expected CSV format uses '#' as section headers:
  * @code
@@ -153,10 +155,10 @@ struct ControlSettings {
  * @endcode
  *
  * (PT) A classe Parser fornece duas operações principais:
- *  - loadData(): analisa o ficheiro CSV e povoa o grafo com vértices de submissão e revisor,
- *    preenchendo também AssignmentParams e ControlSettings.
- *  - buildNetwork(): constrói a rede de fluxo adicionando nós fonte/sumidouro e ligando
- *    submissões a revisores compatíveis com base em regras de correspondência de domínio.
+ * - loadData(): analisa o ficheiro CSV e povoa o grafo com vértices de submissão e revisor,
+ * preenchendo também AssignmentParams e ControlSettings.
+ * - buildNetwork(): constrói a rede de fluxo adicionando nós fonte/sumidouro e ligando
+ * submissões a revisores compatíveis com base em regras de correspondência de domínio.
  *
  * O formato CSV esperado usa '#' como cabeçalhos de secção (ver exemplo acima).
  */
@@ -173,6 +175,7 @@ public:
      * (PT) Remove espaços, tabulações, retornos de carro e newlines de ambos os extremos.
      * Usado internamente para limpar células lidas do ficheiro CSV.
      *
+     * @note Time Complexity: O(C) where C is the number of characters in the string.
      * @param s Input string. / (PT) String de entrada.
      * @return Trimmed string. / (PT) String sem espaços nas extremidades.
      */
@@ -190,20 +193,21 @@ public:
      * @details
      * (EN) Reads the file line by line, detecting section headers (lines starting with '#').
      * Each section is processed differently:
-     *  - SUBMISSIONS: creates a vertex with VertexType::SUBMISSION and assigns title and domain fields.
-     *  - REVIEWERS: creates a vertex with VertexType::REVIEWER and assigns title and domain fields.
-     *  - PARAMETERS: fills in the AssignmentParams struct (minReviews, maxReviews, domain flags).
-     *  - CONTROL: fills in the ControlSettings struct (generateAssignments, riskAnalysis, outputFileName).
+     * - SUBMISSIONS: creates a vertex with VertexType::SUBMISSION and assigns title and domain fields.
+     * - REVIEWERS: creates a vertex with VertexType::REVIEWER and assigns title and domain fields.
+     * - PARAMETERS: fills in the AssignmentParams struct (minReviews, maxReviews, domain flags).
+     * - CONTROL: fills in the ControlSettings struct (generateAssignments, riskAnalysis, outputFileName).
      * Malformed rows are silently skipped via a catch-all exception handler.
      *
      * (PT) Lê o ficheiro linha a linha, detetando cabeçalhos de secção (linhas que começam com '#').
      * Cada secção é processada de forma diferente:
-     *  - SUBMISSIONS: cria um vértice com VertexType::SUBMISSION e atribui título e domínios.
-     *  - REVIEWERS: cria um vértice com VertexType::REVIEWER e atribui título e domínios.
-     *  - PARAMETERS: preenche o struct AssignmentParams (minReviews, maxReviews, flags de domínio).
-     *  - CONTROL: preenche o struct ControlSettings (generateAssignments, riskAnalysis, outputFileName).
+     * - SUBMISSIONS: cria um vértice com VertexType::SUBMISSION e atribui título e domínios.
+     * - REVIEWERS: cria um vértice com VertexType::REVIEWER e atribui título e domínios.
+     * - PARAMETERS: preenche o struct AssignmentParams (minReviews, maxReviews, flags de domínio).
+     * - CONTROL: preenche o struct ControlSettings (generateAssignments, riskAnalysis, outputFileName).
      * Linhas mal formatadas são silenciosamente ignoradas via handler de exceção genérico.
      *
+     * @note Time Complexity: O(L) where L is the number of lines in the CSV file.
      * @param filename Path to the CSV input file. / (PT) Caminho para o ficheiro CSV de entrada.
      * @param g Graph to populate with submission and reviewer vertices. / (PT) Grafo a popular com vértices de submissão e revisor.
      * @param params AssignmentParams struct to fill. / (PT) Struct AssignmentParams a preencher.
@@ -297,31 +301,32 @@ public:
      *
      * @details
      * (EN) Adds a super-source (id=0) and super-sink (id=9999) to the graph, then wires the network:
-     *  - source → submission: capacity = minReviews (each paper needs at least this many reviews).
-     *  - submission → reviewer: capacity = 1, added only when the reviewer is a domain match.
-     *  - reviewer → sink: capacity = maxReviews (limits the total workload per reviewer).
+     * - source → submission: capacity = minReviews (each paper needs at least this many reviews).
+     * - submission → reviewer: capacity = 1, added only when the reviewer is a domain match.
+     * - reviewer → sink: capacity = maxReviews (limits the total workload per reviewer).
      *
      * Domain matching between a submission and a reviewer follows four prioritised cases:
-     *  - Case A (always enabled): submission.primaryDomain == reviewer.primaryDomain.
-     *  - Case B (if useSecondaryRev): submission.primaryDomain == reviewer.secondaryDomain.
-     *  - Case C (if useSecondarySub): submission.secondaryDomain == reviewer.primaryDomain.
-     *  - Case D (if useSecondarySub && useSecondaryRev): both secondary domains match and are not -1.
+     * - Case A (always enabled): submission.primaryDomain == reviewer.primaryDomain.
+     * - Case B (if useSecondaryRev): submission.primaryDomain == reviewer.secondaryDomain.
+     * - Case C (if useSecondarySub): submission.secondaryDomain == reviewer.primaryDomain.
+     * - Case D (if useSecondarySub && useSecondaryRev): both secondary domains match and are not -1.
      *
      * (PT) Adiciona um super-fonte (id=0) e um super-sumidouro (id=9999) ao grafo e liga a rede:
-     *  - fonte → submissão: capacidade = minReviews (cada artigo precisa de pelo menos este número de revisões).
-     *  - submissão → revisor: capacidade = 1, adicionada apenas quando o revisor é compatível por domínio.
-     *  - revisor → sumidouro: capacidade = maxReviews (limita a carga total por revisor).
+     * - fonte → submissão: capacidade = minReviews (cada artigo precisa de pelo menos este número de revisões).
+     * - submissão → revisor: capacidade = 1, adicionada apenas quando o revisor é compatível por domínio.
+     * - revisor → sumidouro: capacidade = maxReviews (limita a carga total por revisor).
      *
      * A correspondência de domínios entre submissão e revisor segue quatro casos por prioridade:
-     *  - Caso A (sempre ativo): submission.primaryDomain == reviewer.primaryDomain.
-     *  - Caso B (se useSecondaryRev): submission.primaryDomain == reviewer.secondaryDomain.
-     *  - Caso C (se useSecondarySub): submission.secondaryDomain == reviewer.primaryDomain.
-     *  - Caso D (se useSecondarySub && useSecondaryRev): ambos os domínios secundários coincidem e não são -1.
+     * - Caso A (sempre ativo): submission.primaryDomain == reviewer.primaryDomain.
+     * - Caso B (se useSecondaryRev): submission.primaryDomain == reviewer.secondaryDomain.
+     * - Caso C (se useSecondarySub): submission.secondaryDomain == reviewer.primaryDomain.
+     * - Caso D (se useSecondarySub && useSecondaryRev): ambos os domínios secundários coincidem e não são -1.
      *
+     * @note Time Complexity: O(S * R) where S is the number of submissions and R is the number of reviewers, bounding the worst-case at O(V^2).
      * @param g Graph already populated with submission and reviewer vertices via loadData().
-     *          (PT) Grafo já populado com vértices de submissão e revisor via loadData().
+     * (PT) Grafo já populado com vértices de submissão e revisor via loadData().
      * @param p Assignment parameters controlling capacity and domain matching rules.
-     *          (PT) Parâmetros de atribuição que controlam capacidade e regras de correspondência de domínio.
+     * (PT) Parâmetros de atribuição que controlam capacidade e regras de correspondência de domínio.
      */
     void buildNetwork(Graph<int> &g, const AssignmentParams &p) {
         // 1. Add super-source (0) and super-sink (9999)
