@@ -1,3 +1,8 @@
+/**
+ * @file reviewmanager.h
+ * @brief Orchestrates the review assignment process, connecting the parser, graph, and algorithms.
+ */
+
 #ifndef REVIEW_MANAGER_H
 #define REVIEW_MANAGER_H
 
@@ -12,6 +17,10 @@
 #include "../parser/parser.h"
 #include "../data_structures/graph.h"
 
+/**
+ * @class ReviewManager
+ * @brief High-level manager class that controls the data flow of the application.
+ */
 class ReviewManager {
 private:
     Graph<int> g;
@@ -19,10 +28,14 @@ private:
     ControlSettings control;
     Parser parser;
 
-    /**
-     * @brief Identifica revisores que são verdadeiramente indispensáveis para o MinReviews.
-     */
 public:
+    /**
+     * @brief Identifies reviewers whose absence would compromise the minimum review requirements.
+     * @details Acts as a Risk Analysis (K=1) heuristic. Checks if removing an active reviewer causes any 
+     * submission's pool of valid candidates to drop below minReviews.
+     * @note Time Complexity: $O(V \cdot E)$ where V is the number of submissions and E is their adjacency list size.
+     * @return std::vector<int> A sorted list of risky reviewer IDs.
+     */
     std::vector<int> findRiskyReviewers() {
         std::vector<int> riskyReviewers;
         std::map<int, std::vector<int>> potentialCandidates;
@@ -65,21 +78,38 @@ public:
         std::sort(riskyReviewers.begin(), riskyReviewers.end());
         return riskyReviewers;
     }
+
+    /**
+     * @brief Loads and parses the input data file.
+     * @param filename Path to the input CSV file.
+     * @note Time Complexity: $O(L)$ where L is the number of lines in the CSV.
+     */
     void load(const std::string &filename) {
         parser.loadData(filename, g, params, control);
     }
 
+    /**
+     * @brief Cleans existing edges and builds the flow network based on loaded parameters.
+     * @note Time Complexity: $O(V^2)$ in the worst case, comparing all submissions against all reviewers.
+     */
     void prepareNetwork() {
         for (auto v : g.getVertexSet()) v->removeOutgoingEdges();
         parser.buildNetwork(g, params);
     }
 
+    /**
+     * @brief Executes the Edmonds-Karp Max-Flow algorithm to assign submissions to reviewers.
+     * @note Time Complexity: $O(V \cdot E^2)$ where V is vertices and E is edges.
+     */
     void runAssignments() {
         edmondsKarp(&g, 0, 9999);
     }
 
     // --- MÉTODOS REQUERIDOS PELO MENU ---
 
+    /**
+     * @brief Prints the current operational parameters to the console.
+     */
     void printParameters() {
         std::cout << "\n--- Current Configuration ---\n";
         std::cout << "Min Reviews / Paper: " << params.minReviews << "\n";
@@ -88,6 +118,9 @@ public:
         std::cout << "Output File: " << control.outputFileName << "\n";
     }
 
+    /**
+     * @brief Displays the final paper-to-reviewer assignments in the console.
+     */
     void showAssignments() {
         std::cout << "\n--- Final Paper Assignments ---\n";
         bool found = false;
@@ -105,6 +138,9 @@ public:
         if (!found) std::cout << "No assignments found.\n";
     }
 
+    /**
+     * @brief Prints all edges in the graph with their respective capacities/weights.
+     */
     void printEdges() {
         std::cout << "\n--- Graph Edges ---\n";
         for (auto v : g.getVertexSet()) {
@@ -116,6 +152,11 @@ public:
 
     // --- MÉTODOS DE BATCH (FORMATO CSV) ---
 
+    /**
+     * @brief Exports the assignment results, missing reviews, and risk analysis to a CSV file.
+     * @param filename Path where the output CSV will be saved.
+     * @note Time Complexity: $O(V \cdot E + A \log A)$ where A is the total number of successful assignments.
+     */
     void saveBatchResults(const std::string &filename) {
         std::ofstream outFile(filename);
         if (!outFile.is_open()) return;
