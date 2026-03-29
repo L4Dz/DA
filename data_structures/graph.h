@@ -189,6 +189,8 @@ public:
      */
     std::string title;
 
+    std::string email; // Campo adicional para identificar conflitos de interesse
+
     /**
      * @brief (EN) Primary research domain (encoded as integer ID).
      * @brief (PT) Domínio de investigação primário (codificado como inteiro).

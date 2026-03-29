@@ -1,0 +1,22 @@
+#Submissions
+#Id, Title, Authors,E-mail,Primary,Secondary
+1, "AI Theory", Alice, alice@test.com, 1, 2
+2, "Robotics", Bob, bob@test.com, 2, 1
+#
+#Reviewers
+#Id, Name, E-mail,Primary,Secondary
+1, Expert One, exp1@test.com, 2, 3
+2, Expert Two, exp2@test.com, 3, 1
+#
+#Parameters
+MinReviewsPerSubmission, 1
+MaxReviewsPerReviewer, 2
+PrimaryReviewerExpertise, 1
+SecondaryReviewerExpertise, 0
+PrimarySubmissionDomain, 1
+SecondarySubmissionDomain, 0
+#
+#Control
+GenerateAssignments, 1
+RiskAnalysis, 1
+OutputFileName, "test_output.csv"

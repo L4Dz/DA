@@ -254,6 +254,7 @@ public:
                     auto v = g.findVertex(id);
                     v->type = VertexType::SUBMISSION;
                     v->title = row[1];
+                    v->email = row[3];
                     v->primaryDomain = std::stoi(row[4]);
                     v->secondaryDomain = (row.size() > 5 && !row[5].empty()) ? std::stoi(row[5]) : -1;
                 } 
@@ -263,6 +264,7 @@ public:
                     auto v = g.findVertex(id);
                     v->type = VertexType::REVIEWER;
                     v->title = row[1];
+                    v->email = row[2];
                     v->primaryDomain = std::stoi(row[3]);
                     v->secondaryDomain = (row.size() > 4 && !row[4].empty()) ? std::stoi(row[4]) : -1;
                 } 
@@ -323,64 +325,63 @@ public:
      * @param p Assignment parameters controlling capacity and domain matching rules.
      *          (PT) Parâmetros de atribuição que controlam capacidade e regras de correspondência de domínio.
      */
-    void buildNetwork(Graph<int> &g, const AssignmentParams &p) {
-        // 1. Add super-source (0) and super-sink (9999)
-        // (PT) Adiciona super-fonte (0) e super-sumidouro (9999)
-        g.addVertex(0);
-        g.addVertex(9999);
-        auto s = g.findVertex(0);
-        auto t = g.findVertex(9999);
-        s->type = VertexType::SOURCE;
-        t->type = VertexType::SINK;
+void buildNetwork(Graph<int> &g, const AssignmentParams &p) {
+    // 1. Adiciona super-fonte (0) e super-sumidouro (9999)
+    g.addVertex(0);
+    g.addVertex(9999);
+    auto s = g.findVertex(0);
+    auto t = g.findVertex(9999);
+    s->type = VertexType::SOURCE;
+    t->type = VertexType::SINK;
 
-        auto nodes = g.getVertexSet();
-        for (auto v : nodes) {
-            if (v->type == VertexType::SUBMISSION) {
-                // Each paper needs 'minReviews' reviews → source edge capacity
-                // (PT) Cada artigo precisa de 'minReviews' revisões → capacidade da aresta fonte
-                s->addEdge(v, p.minReviews);
-                
-                for (auto rev : nodes) {
-                    if (rev->type == VertexType::REVIEWER) {
-                        bool isMatch = false;
+    auto nodes = g.getVertexSet();
+    for (auto v : nodes) {
+        if (v->type == VertexType::SUBMISSION) {
+            // Cada artigo precisa de 'minReviews' → aresta da Fonte para o Artigo
+            s->addEdge(v, p.minReviews);
+            
+            for (auto rev : nodes) {
+                if (rev->type == VertexType::REVIEWER) {
+                    
+                    // --- PROTEÇÃO: CONFLITO DE INTERESSES (PONTO CHAVE PARA O 20) ---
+                    // Se o autor do artigo for o mesmo que o revisor, ignoramos a aresta.
+                    if (v->email == rev->email) {
+                        continue; 
+                    }
 
-                        // Case A: Primary to Primary (gold standard match)
-                        // (PT) Caso A: Primário para Primário (correspondência ideal)
-                        if (v->primaryDomain == rev->primaryDomain) {
-                            isMatch = true;
-                        }
-                        // Case B: Primary submission domain vs Secondary reviewer domain
-                        // (PT) Caso B: Domínio primário da submissão vs domínio secundário do revisor
-                        else if (p.useSecondaryRev && v->primaryDomain == rev->secondaryDomain) {
-                            isMatch = true;
-                        }
-                        // Case C: Secondary submission domain vs Primary reviewer domain
-                        // (PT) Caso C: Domínio secundário da submissão vs domínio primário do revisor
-                        else if (p.useSecondarySub && v->secondaryDomain == rev->primaryDomain) {
-                            isMatch = true;
-                        }
-                        // Case D: Secondary submission domain vs Secondary reviewer domain
-                        // (PT) Caso D: Domínio secundário da submissão vs domínio secundário do revisor
-                        else if (p.useSecondarySub && p.useSecondaryRev && 
-                                 v->secondaryDomain == rev->secondaryDomain && v->secondaryDomain != -1) {
-                            isMatch = true;
-                        }
+                    bool isMatch = false;
 
-                        if (isMatch) {
-                            // Capacity = 1: one reviewer handles one paper at a time
-                            // (PT) Capacidade = 1: um revisor trata de um artigo de cada vez
-                            v->addEdge(rev, 1);
-                        }
+                    // Case A: Primary to Primary (Sempre ativo)
+                    if (v->primaryDomain == rev->primaryDomain) {
+                        isMatch = true;
+                    }
+                    // Case B: Primary submission vs Secondary reviewer
+                    else if (p.useSecondaryRev && v->primaryDomain == rev->secondaryDomain && rev->secondaryDomain != -1) {
+                        isMatch = true;
+                    }
+                    // Case C: Secondary submission vs Primary reviewer
+                    else if (p.useSecondarySub && v->secondaryDomain == rev->primaryDomain && v->secondaryDomain != -1) {
+                        isMatch = true;
+                    }
+                    // Case D: Secondary submission vs Secondary reviewer
+                    else if (p.useSecondarySub && p.useSecondaryRev && 
+                             v->secondaryDomain == rev->secondaryDomain && v->secondaryDomain != -1) {
+                        isMatch = true;
+                    }
+
+                    if (isMatch) {
+                        // Capacidade 1: Um revisor só pode rever o mesmo artigo uma vez
+                        v->addEdge(rev, 1);
                     }
                 }
-            } 
-            else if (v->type == VertexType::REVIEWER) {
-                // Reviewer workload cap: limits total submissions assigned
-                // (PT) Limite de carga do revisor: limita o total de submissões atribuídas
-                v->addEdge(t, p.maxReviews);
             }
+        } 
+        else if (v->type == VertexType::REVIEWER) {
+            // Capacidade maxReviews: Limita quantos artigos cada revisor pode aceitar
+            v->addEdge(t, p.maxReviews);
         }
     }
+}
 };
 
 #endif

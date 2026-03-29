@@ -9,7 +9,7 @@ rm -f a.out
 # 2. Apagar a pasta de resultados gerada pelo run_all_tests
 if [ -d "results_output" ]; then
     rm -rf results_output
-    echo "Pasta 'results_output' removida."
+    echo "dir 'results_output' removida."
 fi
 
 # 3. Apagar ficheiros CSV soltos que foram gerados por erro na raiz

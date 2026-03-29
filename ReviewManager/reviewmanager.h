@@ -23,6 +23,11 @@ private:
      * @brief Identifica revisores que são verdadeiramente indispensáveis para o MinReviews.
      */
 public:
+    /**
+     * @brief Analisa revisores críticos (Risco K=1).
+     * @details Complexidade Temporal: O(R * (V + E^2)). Corre o Edmonds-Karp 
+     * para cada revisor ativo para validar a resiliência da rede.
+     */
     std::vector<int> findRiskyReviewers() {
         std::vector<int> riskyReviewers;
         std::map<int, std::vector<int>> potentialCandidates;
@@ -74,6 +79,11 @@ public:
         parser.buildNetwork(g, params);
     }
 
+    /**
+     * @brief Executa o algoritmo de Edmonds-Karp.
+     * @details Complexidade Temporal: O(V * E^2). No nosso caso, V = S + R + 2, 
+     * onde S é o nº de submissões e R o nº de revisores.
+     */
     void runAssignments() {
         edmondsKarp(&g, 0, 9999);
     }

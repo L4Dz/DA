@@ -1,0 +1,9 @@
+#SubmissionId,ReviewerId,Match
+2, 1, 2
+#ReviewerId,SubmissionId,Match
+1, 2, 2
+#Total: 1
+#Risk Analysis: 1
+1
+#SubmissionId,Domain,MissingReviews
+1, 1, 1

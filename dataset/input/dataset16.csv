@@ -1,0 +1,21 @@
+#Submissions
+#Id, Title, Authors,E-mail,Primary,Secondary
+1, "Secret AI Research", Alice Brown, alice@univ.pt, 1, 
+#
+#Reviewers
+#Id, Name, E-mail,Primary,Secondary
+1, Alice Brown, alice@univ.pt, 1, 
+2, Bruno Santos, bruno@univ.pt, 2, 
+#
+#Parameters
+MinReviewsPerSubmission, 1
+MaxReviewsPerReviewer, 2
+PrimaryReviewerExpertise, 1
+SecondaryReviewerExpertise, 0
+PrimarySubmissionDomain, 1
+SecondarySubmissionDomain, 0
+#
+#Control
+GenerateAssignments, 1
+RiskAnalysis, 1
+OutputFileName, "conflict_out.csv"
