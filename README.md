@@ -22,6 +22,8 @@ Assignments are filtered based on topic identifiers (1 to K). A paper is only as
 The system evaluates the robustness of the review process. It simulates the absence of reviewers to determine if `MinReviewsPerSubmission` can still be maintained by manipulating parameters like `MaxReviewsPerReviewer`.
 ---
 
+
+
 ## Algorithm and Network Formulation
 
 To determine the assignments, the problem is modeled as a **Maximum Flow** problem in a directed graph:
@@ -31,7 +33,25 @@ To determine the assignments, the problem is modeled as a **Maximum Flow** probl
 3. **Reviewer Nodes:** Connected to the **Sink (T)**. The capacity is set to `MaxReviewsPerReviewer`.
 4. **Flow Calculation:** If the maximum flow equals (Total Papers × `MinReviewsPerSubmission`), then every paper has been adequately assigned.
 
----
+Theoretical Analysis: Risk Scenario K > 1
+
+For scenarios where K>1 reviewers fail simultaneously, a simple redundancy check is insufficient because the redistribution of flow in the residual graph is non-linear.
+
+  -Combinatorial Approach: The problem requires evaluating all (K∣R∣​) combinations of reviewers.
+
+  -Methodology: For each combination, the respective reviewers' capacities to the sink are set to zero, and the Max-Flow is recalculated.
+
+  -Complexity: This results in a complexity of O((K∣R∣​)⋅V⋅E2), leading to a combinatorial explosion that makes brute-force verification intractable for large datasets.
+
+Theoretical Analysis: General Formulation & Preferences
+
+Standard Max-Flow algorithms (like Edmonds-Karp) use BFS and are "preference-blind," potentially assigning reviewers to secondary domains even when a primary match is possible.
+
+  -Optimization: To handle primary and secondary domains correctly, the problem should be modeled as Minimum-Cost Maximum-Flow (MCMF).
+
+  -Cost Mapping: Costs are assigned to edges based on priority: Cost 0 for Primary-Primary matches, Cost 1 for Primary-Secondary, and Cost 2 for Secondary-Secondary.
+
+  -Complexity: Using the Successive Shortest Path algorithm, the complexity is approximately O(F⋅ElogV), ensuring the highest quality matches are saturated first.
 
 ## Input File Structure
 
