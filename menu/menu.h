@@ -1,5 +1,7 @@
+// Path: DA2026_PRJ1_T<TN>_G<GN>/Code/src/menu/menu.h
+
 /**
- * @file Menu.h
+ * @file menu.h
  * @brief Interactive command-line menu for the Conference Management System.
  * @brief (PT) Menu interativo de linha de comandos para o Sistema de Gestão de Conferências.
  *
@@ -49,6 +51,7 @@ public:
     /**
      * @brief (EN) Starts and runs the interactive menu loop until the user exits.
      * @brief (PT) Inicia e executa o ciclo interativo do menu até o utilizador sair.
+     * @note Time Complexity: $O(1)$ overhead per iteration, delegating the actual complexity to the selected operations.
      */
     void display() {
         int choice = -1;
@@ -76,6 +79,8 @@ public:
     /**
      * @brief (EN) Dispatches a menu selection to the corresponding ReviewManager operation.
      * @brief (PT) Despacha uma seleção do menu para a operação correspondente do ReviewManager.
+     * @param choice Integer representing the user's menu selection.
+     * @note Time Complexity: $O(1)$ routing. The execution time depends entirely on the underlying ReviewManager method called.
      */
     void handleChoice(int choice) {
         switch (choice) {
@@ -150,6 +155,7 @@ public:
     /**
      * @brief (EN) Prints a summary of all vertices in the graph (ID and title).
      * @brief (PT) Imprime um resumo de todos os vértices no grafo (ID e título).
+     * @note Time Complexity: $O(V)$ where V is the total number of vertices (submissions + reviewers) in the graph.
      */
     void printGraphSummary() {
         auto vertices = manager.getGraph().getVertexSet();
