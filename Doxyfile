@@ -1,0 +1,8 @@
+PROJECT_NAME           = "Scientific Conference Organization Tool"
+OUTPUT_DIRECTORY       = ../Documentation
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+INPUT                  = src/
+RECURSIVE              = YES
+OPTIMIZE_OUTPUT_FOR_C  = YES
+EXTRACT_ALL            = YES
