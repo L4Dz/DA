@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['savebatchresults_0',['saveBatchResults',['../classReviewManager.html#ab9a95b4e302852e0b55ad359901f16ef',1,'ReviewManager']]],
+  ['scientific_20conference_20review_20assignment_20tool_1',['Scientific Conference Review Assignment Tool',['../md_README.html',1,'']]],
+  ['secondarydomain_2',['secondaryDomain',['../classVertex.html#a05ef46013d4631a0c502805e73c1b984',1,'Vertex']]],
+  ['selected_3',['selected',['../classEdge.html#a5242549271b59544ad1189fb532b5bbe',1,'Edge']]],
+  ['setdist_4',['setDist',['../classVertex.html#a060fbea0c3738cc3e09d84ad8c431b34',1,'Vertex']]],
+  ['setflow_5',['setFlow',['../classEdge.html#a1819116e2c156733a14bbd94cc27908e',1,'Edge']]],
+  ['setindegree_6',['setIndegree',['../classVertex.html#af9c4caaac19bdaae5a88a7a671639b59',1,'Vertex']]],
+  ['setinfo_7',['setInfo',['../classVertex.html#a31cd60c26640f8072a928ba70eb2f95e',1,'Vertex']]],
+  ['setlow_8',['setLow',['../classVertex.html#a62acec2c4fcbec56e995974b91444ec9',1,'Vertex']]],
+  ['setnum_9',['setNum',['../classVertex.html#ab3f9026ba6cbd11243ab484a856c6581',1,'Vertex']]],
+  ['setpath_10',['setPath',['../classVertex.html#a5ebf4b550ec94b89a8f80df1a53cc97d',1,'Vertex']]],
+  ['setprocessing_11',['setProcessing',['../classVertex.html#a5ccb6f7215c915afdbcbdb81ad70a408',1,'Vertex']]],
+  ['setreverse_12',['setReverse',['../classEdge.html#afe8f8429025756c63f38e8c6fde7382c',1,'Edge']]],
+  ['setselected_13',['setSelected',['../classEdge.html#a87c8402c5edd6729a2c934e2a0cce6fe',1,'Edge']]],
+  ['setvisited_14',['setVisited',['../classVertex.html#a95a3f3c55f2ba371fae51d3fe0e76c23',1,'Vertex']]],
+  ['showassignments_15',['showAssignments',['../classReviewManager.html#ac3d816793c02275b88f9974f02fb81e4',1,'ReviewManager']]],
+  ['simulates_20the_20absence_20of_20reviewers_20to_20determine_20if_20tt_20minreviewspersubmission_20tt_20can_20still_20be_20maintained_20by_20manipulating_20parameters_20like_20tt_20maxreviewsperreviewer_20tt_16',['The system evaluates the robustness of the review process. It simulates the absence of reviewers to determine if &lt;tt&gt;MinReviewsPerSubmission&lt;/tt&gt; can still be maintained by manipulating parameters like &lt;tt&gt;MaxReviewsPerReviewer&lt;/tt&gt;.',['../md_README.html#autotoc_md7',1,'']]],
+  ['sink_17',['SINK',['../graph_8h.html#afa099a55c5746eff5a0e1ffc04f53cc0a6091f77137cf4570917f3f4d30585bb1',1,'graph.h']]],
+  ['source_18',['SOURCE',['../graph_8h.html#afa099a55c5746eff5a0e1ffc04f53cc0ae60b4854b44ccfb2d92aa6f035171bb4',1,'graph.h']]],
+  ['specifications_19',['Technical Specifications',['../md_README.html#autotoc_md11',1,'']]],
+  ['still_20be_20maintained_20by_20manipulating_20parameters_20like_20tt_20maxreviewsperreviewer_20tt_20',['The system evaluates the robustness of the review process. It simulates the absence of reviewers to determine if &lt;tt&gt;MinReviewsPerSubmission&lt;/tt&gt; can still be maintained by manipulating parameters like &lt;tt&gt;MaxReviewsPerReviewer&lt;/tt&gt;.',['../md_README.html#autotoc_md7',1,'']]],
+  ['structure_21',['Input File Structure',['../md_README.html#autotoc_md9',1,'']]],
+  ['submission_22',['SUBMISSION',['../graph_8h.html#afa099a55c5746eff5a0e1ffc04f53cc0a84bbc0460c817c0366ec0d259d96f0a7',1,'graph.h']]],
+  ['system_20evaluates_20the_20robustness_20of_20the_20review_20process_20it_20simulates_20the_20absence_20of_20reviewers_20to_20determine_20if_20tt_20minreviewspersubmission_20tt_20can_20still_20be_20maintained_20by_20manipulating_20parameters_20like_20tt_20maxreviewsperreviewer_20tt_23',['The system evaluates the robustness of the review process. It simulates the absence of reviewers to determine if &lt;tt&gt;MinReviewsPerSubmission&lt;/tt&gt; can still be maintained by manipulating parameters like &lt;tt&gt;MaxReviewsPerReviewer&lt;/tt&gt;.',['../md_README.html#autotoc_md7',1,'']]]
+];

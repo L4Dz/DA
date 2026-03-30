@@ -1,0 +1,13 @@
+<map id="data_structures/graph.h" name="data_structures/graph.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="35,5,194,31"/>
+<area shape="rect" id="Node000002" href="$reviewmanager_8h.html" title="Orchestrates the review assignment process, connecting the parser, graph, and algorithms." alt="" coords="5,152,224,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,44,97,79,97,99,100,119,112,151,107,153,95,120,91,99,92,78,102,43"/>
+<area shape="rect" id="Node000005" href="$parser_8h.html" title=" " alt="" coords="107,79,215,104"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="132,41,156,77,152,80,128,44"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html" title="Entry point for the Scientific Conference Organization Tool." alt="" coords="77,299,152,324"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="108,191,99,226,98,246,101,265,112,298,107,299,96,266,93,246,93,225,103,190"/>
+<area shape="rect" id="Node000004" href="$menu_8h.html" title="Interactive command&#45;line menu for the Conference Management System." alt="" coords="108,225,209,251"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="131,188,154,224,149,227,127,191"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="146,264,124,300,120,297,142,261"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="148,117,124,153,120,150,144,114"/>
+</map>
